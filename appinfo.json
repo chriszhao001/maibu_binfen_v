@@ -3,7 +3,7 @@
   "myuid": "39fe260221d9717da155d14404ca4054",
   "name": "实验表盘",
   "icon": "RES_BITMAP_WATCHFACE_WEATHER_BG",
-  "version": "2.0.7",
+  "version": "1.0.1",
   "watchface": "true",
   "resources": 
   [

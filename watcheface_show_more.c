@@ -5,7 +5,7 @@
 #include "maibu_sdk.h"
 #include "maibu_res.h"
 
-#define SIMULATE
+// #define SIMULATE
 
 /*标志位*/
 
@@ -215,6 +215,7 @@ static char g_show_more_str_bodytemperature[4] = {0};
 #define HOLIDAY_LEN 		8
 #define HOLIDAY_NORMAL		"平时"
 
+static char g_ifHoliday = 0;
 static char g_show_holiday[HOLIDAY_LEN];
 static char g_show_tm_temp[8];
 
@@ -430,7 +431,7 @@ static P_Window init_window(void)
 		temp_frame.origin.y = SHOW_MORE_CITY_ORIGIN_Y;
 		temp_frame.size.h = SHOW_MORE_CITY_SIZE_H;
 		temp_frame.size.w = SHOW_MORE_CITY_SIZE_W;
-		display_target_layerText(p_window,&temp_frame,GAlignCenter,GColorWhite,g_city,U_ASCII_ARIALBD_12);
+		display_target_layerText(p_window,&temp_frame,GAlignCenter,GColorWhite,g_city,U_ASCII_ARIAL_12);
 	}
 
 	//添加体感温度信息
@@ -449,7 +450,10 @@ static P_Window init_window(void)
 		temp_frame.origin.y = SHOW_MORE_HOLIDAY_ORIGIN_Y;
 		temp_frame.size.h = SHOW_MORE_HOLIDAY_SIZE_H;
 		temp_frame.size.w = SHOW_MORE_HOLIDAY_SIZE_W;
-		display_target_layerText(p_window,&temp_frame,GAlignCenter,GColorWhite,g_show_holiday,U_ASCII_ARIALBD_12);
+		if(g_ifHoliday)
+			display_target_layerText(p_window,&temp_frame,GAlignCenter,GColorWhite,g_show_holiday,U_ASCII_ARIALBD_12);
+		else
+			display_target_layerText(p_window,&temp_frame,GAlignCenter,GColorWhite,g_show_holiday,U_ASCII_ARIAL_12);
 	}
 
 #define GCITYRETRY_ERRTIME	5
@@ -608,7 +612,7 @@ static void data_handler_per_minute()
 	double zhuan = (double)altitude;
 	int zhuan2 = (int)zhuan;
 	//将浮点型数据转变成整形数据
-	sprintf(g_show_more_str_altitude, "%dm", zhuan2);  
+	sprintf(g_show_more_str_altitude, "%d", zhuan2);  
 	// char MMMM[2] = {'m','\0'};
 	// strcat(g_show_more_str_altitude,MMMM);
 
@@ -672,6 +676,7 @@ static void data_handler_per_day()
 	if((slen > 0) && (slen < (HOLIDAY_LEN - 1)))
 	{
 		strcpy(g_show_holiday, lunar_calendar_data_struct.festival);
+		g_ifHoliday = 1;
 	}
 	else
 	{
@@ -679,10 +684,12 @@ static void data_handler_per_day()
 		if((slen > 0) && (slen < (HOLIDAY_LEN - 1)))
 		{
 			strcpy(g_show_holiday, lunar_calendar_data_struct.solar_term);
+			g_ifHoliday = 1;
 		}
 		else
 		{
 			strcpy(g_show_holiday, HOLIDAY_NORMAL);
+			g_ifHoliday = 0;
 		}
 	}
 
