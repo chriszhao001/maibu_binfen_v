@@ -1,0 +1,71 @@
+{
+  "uuid": "c9aed7a6765e0eabf7f093e0d8b7f3cd",
+  "myuid": "39fe260221d9717da155d14404ca4054",
+  "name": "实验表盘",
+  "icon": "RES_BITMAP_WATCHFACE_WEATHER_BG",
+  "version": "2.0.7",
+  "watchface": "true",
+  "resources": 
+  [
+    {
+        "type": "bmp",
+        "name": "RES_BITMAP_WATCHFACE_WEATHER_BG",
+        "file": "bg.bmp"
+    },
+	  {
+        "type": "bmp",
+        "name": "RES_BITMAP_WATCHFACE_WEATHER_REFRESHING",
+        "file": "refreshing.bmp"
+    },
+    {
+        "type": "bmp",
+        "name": "RES_BITMAP_WATCHFACE_WEATHER_CLOUDY",
+        "file": "cloudy.bmp"
+    },
+    {
+        "type": "bmp",
+        "name": "RES_BITMAP_WATCHFACE_WEATHER_FOG",
+        "file": "fog.bmp"
+    },
+    {
+        "type": "bmp",
+        "name": "RES_BITMAP_WATCHFACE_WEATHER_OVERCAST",
+        "file": "overcast.bmp"
+    },
+    {
+        "type": "bmp",
+        "name": "RES_BITMAP_WATCHFACE_WEATHER_RAIN",
+        "file": "rain.bmp"
+    },
+    {
+        "type": "bmp",
+        "name": "RES_BITMAP_WATCHFACE_WEATHER_SNOW",
+        "file": "snow.bmp"
+    },
+    {
+        "type": "bmp",
+        "name": "RES_BITMAP_WATCHFACE_WEATHER_SUNNY",
+        "file": "sunny.bmp"
+    },
+	  {
+        "type": "bmp",
+        "name": "RES_BITMAP_WATCHFACE_WEATHER_DU_HAO",
+        "file": "du.bmp"
+    },
+	  {
+        "type": "bmp",
+        "name": "RES_BITMAP_WATCHFACE_STATUS_BT",
+        "file": "bt.bmp"
+    },
+    {
+        "type": "bmp",
+        "name": "RES_BITMAP_WATCHFACE_LOCATIONFAIL",
+        "file": "locationfail.bmp"
+    },
+	  {
+        "type": "bmp",
+        "name": "RES_BITMAP_WATCHFACE_NETFAIL",
+        "file": "netfail.bmp"
+    }
+  ]
+}
