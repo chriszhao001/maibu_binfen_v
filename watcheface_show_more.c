@@ -5,7 +5,7 @@
 #include "maibu_sdk.h"
 #include "maibu_res.h"
 
-// #define SIMULATE
+#define SIMULATE
 
 /*标志位*/
 
@@ -88,10 +88,10 @@ static char g_gweather_retry = 0;
 #define SHOW_MORE_NETERR_SIZE_W			12	
 
 /*城市名称文本图层位置*/
-#define SHOW_MORE_CITY_ORIGIN_X			0	
+#define SHOW_MORE_CITY_ORIGIN_X			78	
 #define SHOW_MORE_CITY_ORIGIN_Y			62
 #define SHOW_MORE_CITY_SIZE_H			12	
-#define SHOW_MORE_CITY_SIZE_W			34	
+#define SHOW_MORE_CITY_SIZE_W			49
 
 /*体感温度文本图层位置*/
 #define SHOW_MORE_BTEMP_ORIGIN_X		94	
@@ -100,22 +100,22 @@ static char g_gweather_retry = 0;
 #define SHOW_MORE_BTEMP_SIZE_W			34	
 
 /*节假日文本图层位置*/
-#define SHOW_MORE_HOLIDAY_ORIGIN_X		94	
-#define SHOW_MORE_HOLIDAY_ORIGIN_Y		62
+#define SHOW_MORE_HOLIDAY_ORIGIN_X		88	
+#define SHOW_MORE_HOLIDAY_ORIGIN_Y		46
 #define SHOW_MORE_HOLIDAY_SIZE_H		12	
-#define SHOW_MORE_HOLIDAY_SIZE_W		34	
+#define SHOW_MORE_HOLIDAY_SIZE_W		39	
 
 /*月日周文本图层位置*/
 #define SHOW_MORE_M_D_W_ORIGIN_X		0	
 #define SHOW_MORE_M_D_W_ORIGIN_Y		46
 #define SHOW_MORE_M_D_W_SIZE_H			12	
-#define SHOW_MORE_M_D_W_SIZE_W			128	
+#define SHOW_MORE_M_D_W_SIZE_W			96	
 
 /*农历文本图层位置*/
 #define SHOW_MORE_LUNAR_ORIGIN_X		0	
-#define SHOW_MORE_LUNAR_ORIGIN_Y		61
+#define SHOW_MORE_LUNAR_ORIGIN_Y		62
 #define SHOW_MORE_LUNAR_SIZE_H			12	
-#define SHOW_MORE_LUNAR_SIZE_W			128	
+#define SHOW_MORE_LUNAR_SIZE_W			96	
 
 /*步数文本图层位置*/
 #define SHOW_MORE_STEPS_ORIGIN_X		89	
@@ -431,7 +431,7 @@ static P_Window init_window(void)
 		temp_frame.origin.y = SHOW_MORE_CITY_ORIGIN_Y;
 		temp_frame.size.h = SHOW_MORE_CITY_SIZE_H;
 		temp_frame.size.w = SHOW_MORE_CITY_SIZE_W;
-		display_target_layerText(p_window,&temp_frame,GAlignCenter,GColorWhite,g_city,U_ASCII_ARIAL_12);
+		display_target_layerText(p_window,&temp_frame,GAlignRight,GColorWhite,g_city,U_ASCII_ARIAL_12);
 	}
 
 	//添加体感温度信息
@@ -451,9 +451,9 @@ static P_Window init_window(void)
 		temp_frame.size.h = SHOW_MORE_HOLIDAY_SIZE_H;
 		temp_frame.size.w = SHOW_MORE_HOLIDAY_SIZE_W;
 		if(g_ifHoliday)
-			display_target_layerText(p_window,&temp_frame,GAlignCenter,GColorWhite,g_show_holiday,U_ASCII_ARIALBD_12);
+			display_target_layerText(p_window,&temp_frame,GAlignRight,GColorWhite,g_show_holiday,U_ASCII_ARIALBD_12);
 		else
-			display_target_layerText(p_window,&temp_frame,GAlignCenter,GColorWhite,g_show_holiday,U_ASCII_ARIAL_12);
+			display_target_layerText(p_window,&temp_frame,GAlignRight,GColorWhite,g_show_holiday,U_ASCII_ARIAL_12);
 	}
 
 #define GCITYRETRY_ERRTIME	5
@@ -671,6 +671,9 @@ static void data_handler_per_day()
 	maibu_get_lunar_calendar(NULL,&lunar_calendar_data_struct);
 
 	sprintf(g_show_more_str_lunar, "%s%s",lunar_calendar_data_struct.mon,lunar_calendar_data_struct.day);
+	// memset(g_show_more_str_lunar, 0, sizeof(g_show_more_str_lunar));
+	// sprintf(g_show_more_str_lunar, "%s月%s", "十二", "十五");
+	// maibu_print_log(g_show_more_str_lunar);
 	
 	slen = strlen(lunar_calendar_data_struct.festival);
 	if((slen > 0) && (slen < (HOLIDAY_LEN - 1)))
@@ -783,6 +786,8 @@ static void get_city_info_callback(enum ERequestPhone  type, uint8_t* context, u
 					
 			memcpy(g_city,context_city_name_point,20);
 			g_city[19]='\0';
+
+			// strcpy(g_city, "攀枝花市");
 			
 			if (g_weather_bmp_key < 0)
 				request_web_info(NULL, 0, g_city);
